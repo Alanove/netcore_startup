@@ -49,7 +49,20 @@ public partial class AppDbContext : DbContext
             }
         }
     }
+    public void ExecuteQuery(string query)
+    {
+        using (var command = this.Database.GetDbConnection().CreateCommand())
+        {
+            command.CommandText = query;
+            command.CommandType = CommandType.Text;
+
+            this.Database.OpenConnection();
+
+            command.ExecuteReader();
+        }
+    }
 
     public DbSet<GCConfig> GCConfig { get; set; }
     public DbSet<Help> Help { get; set; }
+    public DbSet<OrderRequest> OrderRequest { get; set; }
 }

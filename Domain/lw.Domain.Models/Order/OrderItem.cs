@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 namespace lw.Domain.Models;
 public class OrderItem
 {
+    [Key]
+    public int id { get; set; }
     public string UNITPRICE { get; set; }
     public string DESCRIPTION { get; set; }
     public string ID { get; set; }

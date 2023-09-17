@@ -25,14 +25,14 @@ public class OrderController : ControllerBase
     [HttpPost("config")]
     public ApiResponse Config([FromBody] BaseRequest request)
     {
-        //var config = _gccConfigRepo.Where(c => c.BRANCHID == request.OmegaCustomerId);
+        var config = _gccConfigRepo.Where(c => c.LINE == 514 || c.LINE == 515);
         //the below need to be replaced by config table
-        var config = _helpRepo.GetAll().Take(20).Select(h => new
-        {
-            LINE = h.TOPIC,
-            NO = h.SEQ,
-            LINETEXT = h.INFO
-        }).ToList();
+        //var config = _helpRepo.Where(h => h.SEQ == 1 || h.SEQ == 2).Select(h => new
+        //{
+        //    LINE = h.TOPIC,
+        //    NO = h.SEQ,
+        //    LINETEXT = h.INFO
+        //}).ToList();
 
         return new ApiResponse
         {
@@ -118,10 +118,17 @@ public class OrderController : ControllerBase
         return _helpRepo.GetAll().ToList();
     }
     [HttpGet("get-topic-List-from-query")]
-    public List<string> GetTopicListFromQuery(string topic = "")
+    public string GetTopicListFromQuery(string topic = "")
     {
         string sql = "Select INFO from HELP where TOPIC='" + topic + "' and INFO IS NOT NULL";
-        return this._appDbContext.SqlQuery<string>(sql, x => (x[0] != null ? x[0].ToString() : ""));
+        var list = this._appDbContext.SqlQuery<string>(sql, x => (x[0] != null ? x[0].ToString() : ""));
+        return list[0];
+    }
+    [HttpGet("update-topic")]
+    public void UpdateTopic(string topic, int Seq, string info)
+    {
+        string sql = $"Update HELP set INFO='{info}' where TOPIC='{topic}' and SEQ={Seq}";
+        this._appDbContext.ExecuteQuery(sql);
     }
     [HttpPut("insert-help")]
     public Help InsertHelp([FromBody] Help help)
