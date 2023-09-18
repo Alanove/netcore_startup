@@ -8,8 +8,6 @@ namespace lw.Domain.Models;
 
 public class OrderRequest : BaseRequest
 {
-    [Key]
-    public int id { get; set; }
     public string type { get; set; }
     public int workstationid { get; set; }
     public int modeid { get; set; }

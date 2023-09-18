@@ -8,8 +8,6 @@ namespace lw.Domain.Models;
 
 public class AmountPaid
 {
-    [Key]
-    public int id { get; set; }
     public double PAYMENTTID { get; set; }
     public double AMOUNTPAID { get; set; }
     public double AMOUNTRECEIVED { get; set; }

@@ -64,5 +64,4 @@ public partial class AppDbContext : DbContext
 
     public DbSet<GCConfig> GCConfig { get; set; }
     public DbSet<Help> Help { get; set; }
-    public DbSet<OrderRequest> OrderRequest { get; set; }
 }
