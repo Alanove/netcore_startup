@@ -18,13 +18,7 @@ public partial class AppDbContext : DbContext
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<GCConfig>()
-            .HasNoKey()
-            .ToTable("GC_CONFIG");
-        modelBuilder.Entity<Help>()
-            .ToTable("HELP")
-            .HasKey(e => new { e.TOPIC, e.SEQ });
-
+        
         base.OnModelCreating(modelBuilder);
     }
     public List<T> SqlQuery<T>(string query, Func<DbDataReader, T> map)
@@ -61,7 +55,4 @@ public partial class AppDbContext : DbContext
             command.ExecuteReader();
         }
     }
-
-    public DbSet<GCConfig> GCConfig { get; set; }
-    public DbSet<Help> Help { get; set; }
 }
